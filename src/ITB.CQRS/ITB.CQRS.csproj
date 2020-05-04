@@ -6,6 +6,7 @@
     <Authors>IT Band System</Authors>
     <RepositoryUrl>https://github.com/it-band/ITB.CQRS.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

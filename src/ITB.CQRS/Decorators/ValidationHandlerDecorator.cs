@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentValidation;
 using ITB.CQRS.Abstraction;
 using ITB.ResultModel;
-using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace ITB.CQRS.Decorators
 {
