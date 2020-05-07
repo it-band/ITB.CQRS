@@ -6,13 +6,17 @@
     <Authors>IT Band System</Authors>
     <RepositoryUrl>https://github.com/it-band/ITB.CQRS.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Add base Query for getting filtered lists of entities</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="ITB.Repository.Abstraction" Version="1.0.2" />
     <PackageReference Include="ITB.ResultModel" Version="1.0.0" />
     <PackageReference Include="ITB.Shared.Domain" Version="1.0.1" />
+    <PackageReference Include="ITB.Specification" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="SimpleInjector" Version="4.10.2" />
