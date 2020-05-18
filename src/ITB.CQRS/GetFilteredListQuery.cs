@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using ITB.CQRS.Abstraction;
@@ -34,8 +35,9 @@ namespace ITB.CQRS
         {
         }
 
-        protected virtual void Sort(Sorting sorting)
+        protected virtual IQueryable<TEntity> Sort(IQueryable<TEntity> query, Sorting sorting)
         {
+            return query;
         }
 
         public override async Task<Result<PagedList<TOut>>> Handle(TIn input)
@@ -44,7 +46,7 @@ namespace ITB.CQRS
 
             var query = Repository.Query(Specification);
 
-            Sort(input.Sorting);
+            query = Sort(query, input.Sorting);
 
             int? totalCount = null;
 
