@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using FluentValidation;
 using ITB.CQRS.Abstraction;
 using ITB.CQRS.Decorators;
@@ -11,9 +12,8 @@ namespace ITB.CQRS
 {
     public static class CQRSServiceCollectionExtensions
     {
-        public static IServiceCollection AddCQRS(this IServiceCollection service, Container container, Assembly[] assemblies)
+        public static IServiceCollection AddCQRS(this IServiceCollection service, Container container, Assembly[] assemblies, Action<CQRSOptions> setupAction = null)
         {
-            container.Collection.Register(typeof(IQueryableFilter<>), assemblies);
             container.Collection.Register(typeof(IAccessFilter<>), assemblies);
             container.Collection.Register(typeof(IPermissionValidator<>), assemblies);
             container.Collection.Register(typeof(IValidator<>), assemblies);
@@ -37,6 +37,11 @@ namespace ITB.CQRS
             container.RegisterDecorator(typeof(IHandler<,>), typeof(ErrorHandlerDecorator<,>));
 
             container.RegisterDecorator(typeof(IHandler<,>), typeof(ErrorHandlerDecorator<>));
+
+            if (setupAction != null)
+            {
+                service.Configure(setupAction);
+            }
 
             return service;
         }
