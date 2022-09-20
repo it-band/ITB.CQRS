@@ -59,16 +59,23 @@ namespace ITB.CQRS.Decorators
 
         public override async Task<Result> Handle(TIn input)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
-            var result = await Decorated.Handle(input);
-
-            if (result.IsSuccess)
+            var ignoreAttribute = Attribute.GetCustomAttribute(input.GetType(), typeof(IgnoreTransactionAttribute));
+            if (ignoreAttribute == null)
             {
-                await transaction.CommitAsync();
-            }
+                await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            return result;
+                var result = await Decorated.Handle(input);
+
+                if (result.IsSuccess)
+                {
+                    await transaction.CommitAsync();
+                }
+                return result;
+            }
+            else
+            {
+                return await Decorated.Handle(input);
+            }
         }
     }
 }
